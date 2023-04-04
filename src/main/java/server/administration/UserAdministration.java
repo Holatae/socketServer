@@ -1,7 +1,7 @@
-package administration;
+package server.administration;
 
-import classes.User;
-import exceptions.UserNotFoundException;
+import server.classes.User;
+import server.exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;

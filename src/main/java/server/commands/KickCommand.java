@@ -1,11 +1,11 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import administration.UserAdministration;
-import classes.User;
-import exceptions.PermissionDeniedException;
-import exceptions.UserNotFoundException;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.administration.UserAdministration;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
+import server.exceptions.UserNotFoundException;
 
 import java.io.IOException;
 
@@ -43,7 +43,7 @@ public class KickCommand extends Command {
             throw new PermissionDeniedException(runningUser);
         }
         if (userToKick == null) {
-            ChatControl.sendMessageToUser(runningUser, "classes.User not found");
+            ChatControl.sendMessageToUser(runningUser, "server.classes.User not found");
             return;
         }
 
@@ -54,7 +54,7 @@ public class KickCommand extends Command {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (UserNotFoundException e) {
-            ChatControl.sendMessageToUser(runningUser, "classes.User not found");
+            ChatControl.sendMessageToUser(runningUser, "server.classes.User not found");
         }
     }
 

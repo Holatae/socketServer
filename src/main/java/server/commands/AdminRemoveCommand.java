@@ -1,9 +1,9 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import classes.User;
-import exceptions.PermissionDeniedException;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
 
 public class AdminRemoveCommand extends Command {
     private User adminToRemove;

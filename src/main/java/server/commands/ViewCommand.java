@@ -1,9 +1,9 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import classes.User;
-import exceptions.PermissionDeniedException;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
 
 import java.util.List;
 
@@ -47,6 +47,9 @@ public class ViewCommand extends Command {
                         user.getName() + " " +
                                 user.getSocket().getInetAddress() + " " +
                                 user.getUuid() + "<br>");
+            }
+            if (users.isEmpty()){
+                ChatControl.sendMessageToUser(runningUser,"No one is connected to the server");
             }
         }
     }

@@ -1,9 +1,9 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import administration.UserAdministration;
-import classes.User;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.administration.UserAdministration;
+import server.classes.User;
 
 public class AdminlistCommand extends Command {
     public AdminlistCommand(User runningsUser) {

@@ -1,4 +1,4 @@
-package classes;
+package server.classes;
 
 import java.net.Socket;
 import java.util.UUID;

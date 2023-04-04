@@ -1,7 +1,7 @@
-package exceptions;
+package server.exceptions;
 
-import administration.ChatControl;
-import classes.User;
+import server.administration.ChatControl;
+import server.classes.User;
 
 public class PermissionDeniedException extends Exception {
     /**

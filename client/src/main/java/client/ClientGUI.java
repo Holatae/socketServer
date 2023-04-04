@@ -176,6 +176,7 @@ public class ClientGUI {
             serverSocket.close();
             isConnected = false;
             button.setText("Connect");
+            haveSentName = false;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -191,6 +192,7 @@ public class ClientGUI {
         if(sendMessageField.getText().equalsIgnoreCase("/clear")){
             chatFieldTextArea.setText("");
             messageLog = "";
+            sendMessageField.setText("");
             return;
         }
 
@@ -205,6 +207,8 @@ public class ClientGUI {
         chatFieldTextArea.setText(messageLog);
         //chatFieldTextArea.setText("du: " + message + "\n"); //append
         sendMessageToServer(message, serverSocket);
+
+        sendMessageField.setText("");
 
 
     }

@@ -1,8 +1,9 @@
+package server;
 
-import abstracts.Command;
-import administration.UserAdministration;
-import classes.User;
-import exceptions.PermissionDeniedException;
+import server.abstracts.Command;
+import server.administration.UserAdministration;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,7 +88,7 @@ public class Server {
                 firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
                 System.out.println("Client connected");
-                //administration.ChatControl.sendMessageToUser(new classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
+                //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -149,7 +150,7 @@ public class Server {
                     String name = buildStringFromChars(nameArr);
                     socketsToRemove.add(clientSocket);
                     UserAdministration.addUser(new User(clientSocket, name));
-                    //users.add(new classes.User(clientSocket, name));
+                    //users.add(new server.classes.User(clientSocket, name));
                     sendMessageToClient(name, " has connected<br>", clientSocket);
                 }
             }

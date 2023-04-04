@@ -1,8 +1,8 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import classes.User;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.classes.User;
 
 public class UnknownCommand extends Command {
     public UnknownCommand(User user) {

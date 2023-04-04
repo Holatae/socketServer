@@ -1,5 +1,6 @@
-import abstracts.Command;
+import server.abstracts.Command;
 import org.junit.jupiter.api.Test;
+import server.CommandFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

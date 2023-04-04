@@ -10,7 +10,7 @@ repositories {
 }
 
 application {
-    mainClass = 'server.Server'
+    mainClass = 'client.ClientGUI'
 }
 
 dependencies {
@@ -20,12 +20,8 @@ dependencies {
 
 jar{
     manifest {
-        attributes 'Main-Class': 'server.Server'
+        attributes 'Main-Class': 'client.ClientGUI'
     }
-}
-
-run{
-    standardInput = System.in
 }
 
 test {

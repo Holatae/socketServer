@@ -1,6 +1,6 @@
-package administration;
+package server.administration;
 
-import classes.User;
+import server.classes.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -5,12 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e13c598-956c-4162-95ab-f28ee107ff29" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/main/java/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/ClientGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CommandFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/CommandFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/abstracts/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/abstracts/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/administration/ChatControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/administration/ChatControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/administration/UserAdministration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/administration/UserAdministration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/classes/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/AdminCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/AdminCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/AdminRemoveCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/AdminRemoveCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/AdminlistCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/AdminlistCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/DisconnectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/DisconnectCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/HelpCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/HelpCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/KickCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/KickCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/KickallCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/KickallCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/RenameCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/RenameCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/UnknownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/UnknownCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/commands/ViewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/commands/ViewCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/exceptions/PermissionDeniedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/exceptions/PermissionDeniedException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/exceptions/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/exceptions/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CommandFactoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CommandFactoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +46,12 @@
     <system id="GRADLE">
       <state>
         <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/client">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/client/test">
           <activation />
         </task>
         <projects_view>
@@ -45,6 +71,17 @@
                 <item name="socketServer" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="socketServer" type="f1a62948:ProjectNode" />
+                <item name="client" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="socketServer" type="f1a62948:ProjectNode" />
+                <item name="client" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
             </expand>
             <select />
@@ -79,6 +116,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "liberica-17",
     "last_opened_file_path": "/Users/victor/IdeaProjects/socketServer/client/src/main/java/client",
     "node.js.detected.package.eslint": "true",
@@ -109,7 +147,7 @@
   </component>
   <component name="RunManager" selected="Gradle.socketServer [run]">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Server" />
+      <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="socketServer.main" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -202,6 +240,8 @@
       <option name="presentableId" value="Default" />
       <updated>1680603085110</updated>
       <workItem from="1680603086167" duration="8778000" />
+      <workItem from="1680624947899" duration="92000" />
+      <workItem from="1680625140832" duration="3094000" />
     </task>
     <task id="LOCAL−00001" summary="init">
       <created>1680608174498</created>

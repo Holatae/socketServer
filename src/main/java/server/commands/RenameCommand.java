@@ -1,7 +1,7 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import classes.User;
+import server.abstracts.Command;
+import server.classes.User;
 
 public class RenameCommand extends Command {
     private final String nameToChangeTo;

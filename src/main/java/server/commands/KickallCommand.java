@@ -1,10 +1,10 @@
-package commands;
+package server.commands;
 
 
-import abstracts.Command;
-import administration.UserAdministration;
-import classes.User;
-import exceptions.PermissionDeniedException;
+import server.abstracts.Command;
+import server.administration.UserAdministration;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
 
 public class KickallCommand extends Command {
     public KickallCommand(User runningUser) {

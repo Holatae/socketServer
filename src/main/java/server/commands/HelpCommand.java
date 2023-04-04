@@ -1,8 +1,8 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.ChatControl;
-import classes.User;
+import server.abstracts.Command;
+import server.administration.ChatControl;
+import server.classes.User;
 
 public class HelpCommand extends Command {
     private AdminCommand adminCommand;
@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
 
     @Override
     public String getHelpText() {
-        return "Lists all commands ";
+        return "Lists all server.commands ";
     }
 
     @Override
@@ -47,6 +47,7 @@ public class HelpCommand extends Command {
         kickCommand = new KickCommand(null, null);
         renameCommand = new RenameCommand(null, null);
         viewCommand = new ViewCommand(null, null);
+        disconnectCommand = new DisconnectCommand(null);
         if (command != null) {
             switch (command) {
                 case "admin" ->

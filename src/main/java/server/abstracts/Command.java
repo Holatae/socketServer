@@ -1,7 +1,7 @@
-package abstracts;
+package server.abstracts;
 
-import classes.User;
-import exceptions.PermissionDeniedException;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
 
 public abstract class Command {
     protected User runningUser;

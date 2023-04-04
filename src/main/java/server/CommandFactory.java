@@ -1,7 +1,9 @@
-import abstracts.Command;
-import administration.UserAdministration;
-import classes.User;
-import commands.*;
+package server;
+
+import server.abstracts.Command;
+import server.administration.UserAdministration;
+import server.classes.User;
+import server.commands.*;
 
 public class CommandFactory {
     /**

@@ -1,10 +1,10 @@
-package commands;
+package server.commands;
 
-import abstracts.Command;
-import administration.UserAdministration;
-import classes.User;
-import exceptions.PermissionDeniedException;
-import exceptions.UserNotFoundException;
+import server.abstracts.Command;
+import server.administration.UserAdministration;
+import server.classes.User;
+import server.exceptions.PermissionDeniedException;
+import server.exceptions.UserNotFoundException;
 
 import java.io.IOException;
 
