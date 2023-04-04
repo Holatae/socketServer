@@ -1,4 +1,4 @@
-package petterslektioner.sockets.client;
+package client;
 
 import javax.swing.*;
 import java.awt.*;

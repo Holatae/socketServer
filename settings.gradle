@@ -1,2 +1,6 @@
 rootProject.name = 'socketServer'
 include("client")
+include 'client:test'
+findProject(':client:test')?.name = 'test'
+include 'client'
+
