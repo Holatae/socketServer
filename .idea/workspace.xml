@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e13c598-956c-4162-95ab-f28ee107ff29" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/socketServer.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +225,7 @@
       <updated>1680603085110</updated>
       <workItem from="1680603086167" duration="8778000" />
       <workItem from="1680624947899" duration="92000" />
-      <workItem from="1680625140832" duration="3658000" />
+      <workItem from="1680625140832" duration="7575000" />
     </task>
     <task id="LOCAL−00001" summary="init">
       <created>1680608174498</created>
@@ -240,7 +245,13 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1680628978329</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="Added a README.md file">
+      <created>1680629501638</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1680629501638</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +261,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="Added ClientGUI" />
     <MESSAGE value="Moved some stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved some stuff" />
+    <MESSAGE value="Added a README.md file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a README.md file" />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">

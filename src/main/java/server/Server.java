@@ -1,5 +1,7 @@
 package server;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import server.abstracts.Command;
 import server.administration.UserAdministration;
 import server.classes.User;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Server {
+    private Logger logger = LogManager.getLogger(Server.class);
     private boolean done = false;
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -83,15 +86,15 @@ public class Server {
             });
             commandThread.start();
             // Wait for client to connect
-            System.out.println("Waiting for client to connect");
+            logger.info("Wating for clients to connect");
             while (!done) {
                 firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
-                System.out.println("Client connected");
+                logger.info("Client connected");
                 //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
             }
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            logger.fatal("Error: " + e.getMessage());
             done = true;
         }
     }
@@ -102,7 +105,7 @@ public class Server {
             clientSocket.close();
             serverSocket.close();
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            logger.fatal("Error: " + e.getMessage());
         }
     }
 
@@ -190,7 +193,8 @@ public class Server {
                         command.execute();
                         return;
                     }
-                    System.out.println(user.getName() + ": " + message);
+                    logger.info(user.getName() + ": " + message);
+                    //System.out.println(user.getName() + ": " + message);
                     sendMessageToClient(user.getName(), message, user.getSocket());
                 }
             } catch (IOException e) {
