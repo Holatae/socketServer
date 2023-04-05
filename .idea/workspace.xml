@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3e13c598-956c-4162-95ab-f28ee107ff29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +277,13 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1680629501638</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="Updated version number">
+      <created>1680640453717</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1680640453717</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,7 +294,8 @@
     <MESSAGE value="Added ClientGUI" />
     <MESSAGE value="Moved some stuff" />
     <MESSAGE value="Added a README.md file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a README.md file" />
+    <MESSAGE value="Updated version number" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated version number" />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">
