@@ -12,10 +12,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Server {
     private Logger logger = LogManager.getLogger(Server.class);
@@ -122,7 +119,9 @@ public class Server {
                 try {
                     if (user.getSocket() != currentClientSocket) {
                         PrintWriter out = new PrintWriter(user.getSocket().getOutputStream(), true);
-                        out.print(sendingUser + ": "+ message);
+                        String messageToSend = sendingUser + ": "+ message;
+                        String encodedMessage = Base64.getEncoder().encodeToString(messageToSend.getBytes());
+                        out.print(encodedMessage);
                         out.flush();
                     }
                 } catch (IOException e) {
@@ -184,7 +183,9 @@ public class Server {
                     messageArr.add((char) data);
                 }
                 if (messageArr.size() > 0) {
-                    String message = buildStringFromChars(messageArr);
+                    String encodedMessage = buildStringFromChars(messageArr);
+                    String message = new String(Base64.getDecoder().decode(encodedMessage));
+
                     // Get the first character of the message
                     if (message.charAt(0) == '/'){
                         // Remove the first character

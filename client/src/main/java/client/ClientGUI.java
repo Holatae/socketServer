@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class ClientGUI {
     JFrame frame = new JFrame("Chat");
@@ -64,7 +65,8 @@ public class ClientGUI {
                 //String message = messageArr.stream().map(Object::toString).collect(Collectors.joining());
             }
             if (messageArr.size() > 0) {
-                String message = buildStringFromChars(messageArr);
+                String encodedMessage = buildStringFromChars(messageArr);
+                String message = new String(Base64.getDecoder().decode(encodedMessage));
                 if (message.equals("You have been kicked from the server")) {
                     System.out.println("You have been kicked from the server");
                     chatFieldTextArea.setText("You have been kicked from the server");
@@ -102,8 +104,9 @@ public class ClientGUI {
     private void sendMessageToServer(String message, Socket socket) {
         // Send message to server
         try {
+            String encodedMessage = Base64.getEncoder().encodeToString(message.getBytes());
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            out.print(message);
+            out.print(encodedMessage);
             out.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
