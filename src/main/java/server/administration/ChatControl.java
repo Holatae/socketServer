@@ -4,6 +4,7 @@ import server.classes.User;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 
 public class ChatControl {
     public synchronized static void sendMessageToUser(User user, String message) {
@@ -22,7 +23,8 @@ public class ChatControl {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        out.print(message);
+        String encodedMessage = Base64.getEncoder().encodeToString(message.getBytes());
+        out.print(encodedMessage);
         out.flush();
 
     }

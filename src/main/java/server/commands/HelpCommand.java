@@ -67,11 +67,15 @@ public class HelpCommand extends Command {
             return;
         }
 
-        ChatControl.sendMessageToUser(runningUser, adminCommand.getCommand() + middleThing + adminCommand.getHelpText() + endLine);
-        ChatControl.sendMessageToUser(runningUser, adminlistCommand.getCommand() + middleThing + adminlistCommand.getHelpText() + endLine);
-        ChatControl.sendMessageToUser(runningUser, kickCommand.getCommand() + middleThing + kickCommand.getHelpText() + endLine);
-        ChatControl.sendMessageToUser(runningUser, renameCommand.getCommand() + middleThing + renameCommand.getHelpText() + endLine);
-        ChatControl.sendMessageToUser(runningUser, viewCommand.getCommand() + middleThing + viewCommand.getHelpText() + endLine);
-        ChatControl.sendMessageToUser(runningUser, disconnectCommand.getCommand() + middleThing + disconnectCommand.getHelpText() + endLine);
+        String adminCommandHelp = adminCommand.getCommand() + middleThing + adminCommand.getHelpText() + endLine;
+        String adminListCommandHelp = adminlistCommand.getCommand() + middleThing + adminlistCommand.getHelpText() + endLine;
+        String kickCommandHelp = kickCommand.getCommand() + middleThing + kickCommand.getHelpText() + endLine;
+        String renameCommandHelp = renameCommand.getCommand() + middleThing + renameCommand.getHelpText() + endLine;
+        String viewCommandHelp = viewCommand.getCommand() + middleThing + viewCommand.getHelpText() + endLine;
+        String disconnectCommandHelp = disconnectCommand.getCommand() + middleThing + disconnectCommand.getHelpText() + endLine;
+
+        String helpCommandMessage = adminCommandHelp + adminListCommandHelp + kickCommandHelp + renameCommandHelp + viewCommandHelp + disconnectCommandHelp;
+
+        ChatControl.sendMessageToUser(runningUser, helpCommandMessage);
     }
 }

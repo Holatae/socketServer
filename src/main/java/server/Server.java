@@ -3,6 +3,7 @@ package server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import server.abstracts.Command;
+import server.administration.ChatControl;
 import server.administration.UserAdministration;
 import server.classes.User;
 import server.exceptions.PermissionDeniedException;
@@ -35,7 +36,7 @@ public class Server {
         done = false;
         // Make this on a separate thread
         try {
-            serverSocket = new ServerSocket(1235 );
+            serverSocket = new ServerSocket(57236 );
             Runnable checkMessagesRunnable = new Runnable() {
                 @Override
                 public void run() {
@@ -123,6 +124,7 @@ public class Server {
                         String encodedMessage = Base64.getEncoder().encodeToString(messageToSend.getBytes());
                         out.print(encodedMessage);
                         out.flush();
+                        ChatControl.sendMessageToUser(user, "THIS IS A TEST");
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
