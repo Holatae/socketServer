@@ -130,6 +130,7 @@ public class ClientGUI {
         sendMessageField.setBounds(400, 300, 100, 100);
         chatFieldTextArea.setEditable(false);
         chatFieldTextArea.setContentType("text/html");
+        chatFieldTextArea.setFont(new Font("Arial Unicode MS", Font.PLAIN, 12));
 
         button.addActionListener(e -> {
             if (button.getText().equalsIgnoreCase("connect")) {

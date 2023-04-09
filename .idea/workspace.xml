@@ -7,7 +7,6 @@
     <list default="true" id="3e13c598-956c-4162-95ab-f28ee107ff29" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/client/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,7 +303,13 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1680640453717</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="Made so characters like ÅÄÖ works">
+      <created>1681043444434</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1681043444434</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +321,8 @@
     <MESSAGE value="Moved some stuff" />
     <MESSAGE value="Added a README.md file" />
     <MESSAGE value="Updated version number" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated version number" />
+    <MESSAGE value="Made so characters like ÅÄÖ works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made so characters like ÅÄÖ works" />
   </component>
   <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
     <option name="sizePresets">
