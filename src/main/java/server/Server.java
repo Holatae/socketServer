@@ -88,7 +88,7 @@ public class Server {
             while (!done) {
                 firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
-                logger.info("Client connected");
+                logger.info("Client connected from " + firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1).getInetAddress());
                 //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
             }
         } catch (Exception e) {
@@ -155,6 +155,7 @@ public class Server {
                     UserAdministration.addUser(new User(clientSocket, name));
                     //users.add(new server.classes.User(clientSocket, name));
                     sendMessageToClient(name, " has connected<br>", clientSocket);
+                    logger.info("<" + name + "> " + "has Connected from IP " + clientSocket.getInetAddress());
                 }
             }
             for (Socket socket : socketsToRemove
@@ -193,6 +194,7 @@ public class Server {
                         message = message.substring(1);
                         Command command = CommandFactory.getCommand(message, user);
                         command.execute();
+                        logger.info(user.getName() + " executed " + command.getCommand());
                         return;
                     }
                     logger.info(user.getName() + ": " + message);
