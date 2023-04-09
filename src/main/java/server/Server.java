@@ -124,7 +124,6 @@ public class Server {
                         String encodedMessage = Base64.getEncoder().encodeToString(messageToSend.getBytes());
                         out.print(encodedMessage);
                         out.flush();
-                        ChatControl.sendMessageToUser(user, "THIS IS A TEST");
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
