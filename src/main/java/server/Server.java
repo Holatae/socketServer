@@ -36,7 +36,7 @@ public class Server {
         done = false;
         // Make this on a separate thread
         try {
-            serverSocket = new ServerSocket(57236 );
+            serverSocket = new ServerSocket(1235 );
             Runnable checkMessagesRunnable = new Runnable() {
                 @Override
                 public void run() {
