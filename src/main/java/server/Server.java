@@ -73,7 +73,7 @@ public class Server {
             });
             commandThread.start();
             // Wait for client to connect
-            logger.info("Wating for clients to connect");
+            logger.info("Waiting for clients to connect");
             while (!done) {
                 firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
