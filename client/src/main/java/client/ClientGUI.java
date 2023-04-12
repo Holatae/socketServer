@@ -184,20 +184,24 @@ public class ClientGUI {
     }
 
     private void sendMessageAndLogIt() {
-        if (sendMessageField.getText().equalsIgnoreCase("/dc")){
+        String message = sendMessageField.getText();
+        if (message.equalsIgnoreCase("/dc")){
             sendMessageToServer("/dc", serverSocket);
             chatFieldTextArea.setText("Disconnected from server");
             disconnectFromServer();
             return;
         }
-        if(sendMessageField.getText().equalsIgnoreCase("/clear")){
+        if(message.equalsIgnoreCase("/clear")){
             chatFieldTextArea.setText("");
             messageLog = "";
             sendMessageField.setText("");
             return;
         }
 
-        String message = sendMessageField.getText();
+        if (message.split(" ")[0].equalsIgnoreCase("/rename") && message.split(" ").length == 2) {
+            frame.setTitle(message.split(" ")[1]);
+        }
+
         if (!haveSentName) {
             String name = JOptionPane.showInputDialog("Enter name");
             sendNameToServer(name, serverSocket);
