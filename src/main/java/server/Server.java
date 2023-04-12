@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Server {
     private final Logger logger = LogManager.getLogger(Server.class);
@@ -165,7 +166,9 @@ public class Server {
                     messageArr.add((char) data);
                 }
                 if (messageArr.size() > 0) {
-                    String encodedMessage = buildStringFromChars(messageArr);
+                    String encodedMessage = messageArr.stream()
+                            .map(Objects::toString)
+                            .collect(Collectors.joining());
                     String message = new String(Base64.getDecoder().decode(encodedMessage));
 
                     // Get the first character of the message
