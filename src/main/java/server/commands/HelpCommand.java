@@ -5,13 +5,7 @@ import server.administration.ChatControl;
 import server.classes.User;
 
 public class HelpCommand extends Command {
-    private AdminCommand adminCommand;
-    private AdminlistCommand adminlistCommand;
-    private KickCommand kickCommand;
-    private RenameCommand renameCommand;
-    private ViewCommand viewCommand;
-    private DisconnectCommand disconnectCommand;
-    private String command;
+    private final String command;
     public HelpCommand(User runningUser, String command) {
         super(runningUser);
         this.command = command;
@@ -42,12 +36,13 @@ public class HelpCommand extends Command {
         final String middleThing = " - ";
         final String endLine = "<br>\n";
 
-        adminCommand = new AdminCommand(null, null);
-        adminlistCommand = new AdminlistCommand(null);
-        kickCommand = new KickCommand(null, null);
-        renameCommand = new RenameCommand(null, null);
-        viewCommand = new ViewCommand(null, null);
-        disconnectCommand = new DisconnectCommand(null);
+        AdminCommand adminCommand = new AdminCommand(null, null);
+        AdminlistCommand adminlistCommand = new AdminlistCommand(null);
+        KickCommand kickCommand = new KickCommand(null, null);
+        RenameCommand renameCommand = new RenameCommand(null, null);
+        ViewCommand viewCommand = new ViewCommand(null, null);
+        DisconnectCommand disconnectCommand = new DisconnectCommand(null);
+        NameCommand nameCommand = new NameCommand(null);
         if (command != null) {
             switch (command) {
                 case "admin" ->
@@ -62,6 +57,8 @@ public class HelpCommand extends Command {
                         ChatControl.sendMessageToUser(runningUser, viewCommand.getUsageText() + middleThing + viewCommand.getHelpText() + endLine);
                 case "dc" ->
                         ChatControl.sendMessageToUser(runningUser, disconnectCommand.getUsageText() + middleThing + disconnectCommand.getHelpText() + endLine);
+                case "name" ->
+                    ChatControl.sendMessageToUser(runningUser, nameCommand.getUsageText() + middleThing + nameCommand.getHelpText() + endLine);
                 default -> ChatControl.sendMessageToUser(runningUser, "Command not found" + endLine);
             }
             return;
@@ -73,8 +70,9 @@ public class HelpCommand extends Command {
         String renameCommandHelp = renameCommand.getCommand() + middleThing + renameCommand.getHelpText() + endLine;
         String viewCommandHelp = viewCommand.getCommand() + middleThing + viewCommand.getHelpText() + endLine;
         String disconnectCommandHelp = disconnectCommand.getCommand() + middleThing + disconnectCommand.getHelpText() + endLine;
+        String nameCommandHelp = nameCommand.getCommand() + middleThing + nameCommand.getHelpText() + endLine;
 
-        String helpCommandMessage = adminCommandHelp + adminListCommandHelp + kickCommandHelp + renameCommandHelp + viewCommandHelp + disconnectCommandHelp;
+        String helpCommandMessage = adminCommandHelp + adminListCommandHelp + kickCommandHelp + renameCommandHelp + viewCommandHelp + disconnectCommandHelp + nameCommandHelp;
 
         ChatControl.sendMessageToUser(runningUser, helpCommandMessage);
     }
