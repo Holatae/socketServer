@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ClientGUI {
     JFrame frame = new JFrame("Chat");
@@ -62,10 +64,13 @@ public class ClientGUI {
             while (inputStream.available() > 0) {
                 data = inputStream.read();
                 messageArr.add((char) data);
-                //String message = messageArr.stream().map(Object::toString).collect(Collectors.joining());
             }
             if (messageArr.size() > 0) {
-                String encodedMessage = buildStringFromChars(messageArr);
+                // From a ArrayList of characters to a String
+                String encodedMessage = messageArr.stream()
+                        .map(Objects::toString)
+                        .collect(Collectors.joining());
+
                 String message = new String(Base64.getDecoder().decode(encodedMessage));
                 if (message.equals("You have been kicked from the server")) {
                     System.out.println("You have been kicked from the server");
@@ -91,14 +96,6 @@ public class ClientGUI {
             System.out.println("Closed connection to server");
             isConnected = false;
         }
-    }
-    private String buildStringFromChars(ArrayList<Character> chars) {
-        StringBuilder message = new StringBuilder();
-        for (Character character : chars
-        ) {
-            message.append(character);
-        }
-        return message.toString();
     }
 
     private void sendMessageToServer(String message, Socket socket) {

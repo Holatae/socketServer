@@ -3,7 +3,6 @@ package server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import server.abstracts.Command;
-import server.administration.ChatControl;
 import server.administration.UserAdministration;
 import server.classes.User;
 import server.exceptions.PermissionDeniedException;
@@ -14,16 +13,14 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Server {
-    private Logger logger = LogManager.getLogger(Server.class);
+    private final Logger logger = LogManager.getLogger(Server.class);
     private boolean done = false;
-    private ServerSocket serverSocket;
-    private Socket clientSocket;
 
     private final List<Socket> firstTimeConnectedSocket = Collections.synchronizedList(new ArrayList<>());
 
-    private final List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) {
         new Server().startServer();
@@ -35,56 +32,49 @@ public class Server {
     private void startServer() {
         done = false;
         // Make this on a separate thread
-        try {
-            serverSocket = new ServerSocket(1235 );
-            Runnable checkMessagesRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    while (!done) {
-                        try {
-                            checkForMessages();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+        try (ServerSocket serverSocket = new ServerSocket(1235)){
+            Runnable checkMessagesRunnable = () -> {
+                while (!done) {
+                    try {
+                        checkForMessages();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             };
-            Runnable checkForFirstTimeUsers = new Runnable() {
-                @Override
-                public void run() {
-                    while (!done) {
-                        try {
-                            getNameFromUser();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            Runnable checkForFirstTimeUsers = () -> {
+                while (!done) {
+                    try {
+                        getNameFromUser();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             };
+
             User serverUser = new User(null, null);
             serverUser.setAdmin(true);
+
             Thread checkForFirstTimeUsersThread = new Thread(checkForFirstTimeUsers);
             checkForFirstTimeUsersThread.start();
             Thread checkMessagesThread = new Thread(checkMessagesRunnable);
             checkMessagesThread.start();
-            Thread commandThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Scanner scanner = new Scanner(System.in);
-                    while (!done) {
-                        String commandFromServer = scanner.nextLine();
-                        Command command = CommandFactory.getCommand(commandFromServer, serverUser);
-                        try {
-                            command.execute();
-                        } catch (PermissionDeniedException e) {
-                            e.printStackTrace();
-                        }
+
+            Thread commandThread = new Thread(() -> {
+                Scanner scanner = new Scanner(System.in);
+                while (!done) {
+                    String commandFromServer = scanner.nextLine();
+                    Command command = CommandFactory.getCommand(commandFromServer, serverUser);
+                    try {
+                        command.execute();
+                    } catch (PermissionDeniedException e) {
+                        e.printStackTrace();
                     }
                 }
             });
             commandThread.start();
             // Wait for client to connect
-            logger.info("Wating for clients to connect");
+            logger.info("Waiting for clients to connect");
             while (!done) {
                 firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
@@ -97,15 +87,6 @@ public class Server {
         }
     }
 
-    private void stopServer() {
-        try {
-            done = true;
-            clientSocket.close();
-            serverSocket.close();
-        } catch (Exception e) {
-            logger.fatal("Error: " + e.getMessage());
-        }
-    }
 
     /**
      * @param sendingUser - The user that sent the message
@@ -185,7 +166,9 @@ public class Server {
                     messageArr.add((char) data);
                 }
                 if (messageArr.size() > 0) {
-                    String encodedMessage = buildStringFromChars(messageArr);
+                    String encodedMessage = messageArr.stream()
+                            .map(Objects::toString)
+                            .collect(Collectors.joining());
                     String message = new String(Base64.getDecoder().decode(encodedMessage));
 
                     // Get the first character of the message
@@ -208,7 +191,7 @@ public class Server {
     }
 
     /**
-     * @param chars
+     * @param chars an ArrayList of characters
      * @return a String from the arrayList of characters.
      */
     private String buildStringFromChars(ArrayList<Character> chars){
