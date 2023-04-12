@@ -50,8 +50,9 @@ public class CommandFactory {
                         yield new AdminRemoveCommand(user, UserAdministration.getUserByEitherNameOrUuid(commandArr[1]));
                 }
                 case "kickall" -> new KickallCommand(user);
-                default -> new UnknownCommand(user);
                 case "dc" -> new DisconnectCommand(user);
+                case "name" -> new NameCommand(user);
+                default -> new UnknownCommand(user);
             };
         }catch (Exception e){
             return new UnknownCommand(user);
