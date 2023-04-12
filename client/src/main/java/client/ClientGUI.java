@@ -64,8 +64,6 @@ public class ClientGUI {
             while (inputStream.available() > 0) {
                 data = inputStream.read();
                 messageArr.add((char) data);
-                messageArr.stream().map(Objects::toString).collect(Collectors.joining());
-                //String message = messageArr.stream().map(Object::toString).collect(Collectors.joining());
             }
             if (messageArr.size() > 0) {
                 // From a ArrayList of characters to a String
