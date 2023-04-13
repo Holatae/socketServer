@@ -5,6 +5,9 @@ import server.administration.UserAdministration;
 import server.classes.User;
 import server.commands.*;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class CommandFactory {
     /**
      * This method returns the command that should be executed.
@@ -52,6 +55,16 @@ public class CommandFactory {
                 case "kickall" -> new KickallCommand(user);
                 case "dc" -> new DisconnectCommand(user);
                 case "name" -> new NameCommand(user);
+                case "bc" -> {
+                    if (commandArr.length == 1){
+                        yield new BroadcastCommand(user, null);
+                    }
+                    else {
+                        yield new BroadcastCommand(user, Arrays.stream(commandArr)
+                                .skip(1)
+                                .collect(Collectors.joining(" ")));
+                    }
+                }
                 default -> new UnknownCommand(user);
             };
         }catch (Exception e){
