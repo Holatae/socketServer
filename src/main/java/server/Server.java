@@ -119,33 +119,25 @@ public class Server {
      * @throws IOException when something goes horribly wrong
      */
     private synchronized void getNameFromUser() throws IOException {
-        ArrayList<Socket> socketsToRemove = new ArrayList<>();
-        synchronized (firstTimeConnectedSocket) {
-            for (Socket clientSocket : firstTimeConnectedSocket
-            ) {
-                InputStream inputStream = clientSocket.getInputStream();
-                int data;
-                ArrayList<Character> nameArr = new ArrayList<>();
-                while (inputStream.available() > 0) {
-                    data = inputStream.read();
-                    nameArr.add((char) data);
-                }
-                if (nameArr.size() > 0) {
-                    String name = buildStringFromChars(nameArr);
-                    socketsToRemove.add(clientSocket);
-                    UserAdministration.addUser(new User(clientSocket, name));
-                    //users.add(new server.classes.User(clientSocket, name));
-                    sendMessageToClient(name, " has connected<br>", clientSocket);
-                    logger.info("<" + name + "> " + "has Connected from IP " + clientSocket.getInetAddress());
-                }
+        Iterator<Socket> iterator = firstTimeConnectedSocket.iterator();
+        while(iterator.hasNext()){
+            Socket clientSocket = iterator.next();
+            InputStream inputStream = clientSocket.getInputStream();
+            int data;
+            ArrayList<Character> nameArr = new ArrayList<>();
+            while (inputStream.available() > 0) {
+                data = inputStream.read();
+                nameArr.add((char) data);
             }
-            for (Socket socket : socketsToRemove
-            ) {
-                firstTimeConnectedSocket.remove(socket);
+            if (nameArr.size() > 0) {
+                String name = buildStringFromChars(nameArr);
+                iterator.remove();
+                UserAdministration.addUser(new User(clientSocket, name));
+                //users.add(new server.classes.User(clientSocket, name));
+                sendMessageToClient(name, " has connected<br>", clientSocket);
+                logger.info("<" + name + "> " + "has Connected from IP " + clientSocket.getInetAddress());
             }
-            {
 
-            }
         }
     }
 
