@@ -130,7 +130,9 @@ public class Server {
                 nameArr.add((char) data);
             }
             if (nameArr.size() > 0) {
-                String name = buildStringFromChars(nameArr);
+                String name = nameArr.stream()
+                        .map(Objects::toString)
+                        .collect(Collectors.joining());
                 iterator.remove();
                 UserAdministration.addUser(new User(clientSocket, name));
                 //users.add(new server.classes.User(clientSocket, name));
@@ -181,18 +183,4 @@ public class Server {
             } catch (PermissionDeniedException ignored) {}
         }
     }
-
-    /**
-     * @param chars an ArrayList of characters
-     * @return a String from the arrayList of characters.
-     */
-    private String buildStringFromChars(ArrayList<Character> chars){
-        StringBuilder message = new StringBuilder();
-        for (Character character : chars
-        ) {
-            message.append(character);
-        }
-        return message.toString();
-    }
-
 }
