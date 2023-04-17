@@ -19,8 +19,6 @@ public class Server {
     private final Logger logger = LogManager.getLogger(Server.class);
     private boolean done = false;
 
-    private final List<Socket> firstTimeConnectedSocket = Collections.synchronizedList(new ArrayList<>());
-
 
     public static void main(String[] args) {
         new Server().startServer();
@@ -42,21 +40,10 @@ public class Server {
                     }
                 }
             };
-            Runnable checkForFirstTimeUsers = () -> {
-                while (!done) {
-                    try {
-                        getNameFromUser();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
 
             User serverUser = new User(null, null);
             serverUser.setAdmin(true);
 
-            Thread checkForFirstTimeUsersThread = new Thread(checkForFirstTimeUsers);
-     //       checkForFirstTimeUsersThread.start();
             Thread checkMessagesThread = new Thread(checkMessagesRunnable);
             checkMessagesThread.start();
 
@@ -77,11 +64,8 @@ public class Server {
             logger.info("Waiting for clients to connect");
             while (!done) {
                 UserAdministration.addUser(new User(serverSocket.accept(), null));
-                logger.info("Client connected from " + UserAdministration.getUsers().get(UserAdministration.getUsers().size() - 1).getSocket().getInetAddress());
-               // firstTimeConnectedSocket.add(serverSocket.accept());
-                //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
-                //logger.info("Client connected from " + firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1).getInetAddress());
-                //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
+                logger.info("Client connected from " + UserAdministration.getUsers()
+                        .get(UserAdministration.getUsers().size() - 1).getSocket().getInetAddress());
             }
         } catch (Exception e) {
             logger.fatal("Error: " + e.getMessage());
@@ -112,36 +96,6 @@ public class Server {
                     throw new RuntimeException(e);
                 }
             }
-        }
-    }
-
-    /**
-     * The first time a client connects, it sends its name to the server. This function gets the name from the client.
-     * So the first data sent from the client is the name, always.
-     * @throws IOException when something goes horribly wrong
-     */
-    private synchronized void getNameFromUser() throws IOException {
-        Iterator<Socket> iterator = firstTimeConnectedSocket.iterator();
-        while(iterator.hasNext()){
-            Socket clientSocket = iterator.next();
-            InputStream inputStream = clientSocket.getInputStream();
-            int data;
-            ArrayList<Character> nameArr = new ArrayList<>();
-            while (inputStream.available() > 0) {
-                data = inputStream.read();
-                nameArr.add((char) data);
-            }
-            if (nameArr.size() > 0) {
-                String name = nameArr.stream()
-                        .map(Objects::toString)
-                        .collect(Collectors.joining());
-                iterator.remove();
-                UserAdministration.addUser(new User(clientSocket, name));
-                //users.add(new server.classes.User(clientSocket, name));
-                sendMessageToClient(name, " has connected<br>", clientSocket);
-                logger.info("<" + name + "> " + "has Connected from IP " + clientSocket.getInetAddress());
-            }
-
         }
     }
 
