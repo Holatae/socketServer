@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ViewCommand extends Command {
     private final List<User> users;
+    private final StringBuilder messageToSend = new StringBuilder();
 
     @Override
     public boolean requireAdminPrivileges() {
@@ -33,26 +34,21 @@ public class ViewCommand extends Command {
     @Override
     public void execute() throws PermissionDeniedException {
         if (!runningUser.isAdmin()) {
-            for (User user : users) {
-                {
-                    ChatControl.sendMessageToUser(runningUser,
-                            user.getName() + "<br>");
-                }
-            }
-
+            users.forEach(user -> messageToSend.append(user.getName()).append("<br>"));
         }
         else {
-            for (User user : users) {
-                ChatControl.sendMessageToUser(runningUser,
-                        user.getName() + " " +
-                                user.getSocket().getInetAddress() + " " +
-                                user.getUuid() + "<br>");
+            users.forEach(user -> messageToSend.append(user.getName())
+                    .append(" ")
+                    .append(user.getSocket().getInetAddress())
+                    .append(" ")
+                    .append(user.getUuid()).append("<br>"));
+
             }
             if (users.isEmpty()){
-                ChatControl.sendMessageToUser(runningUser,"No one is connected to the server");
+                messageToSend.append("No one is connected to the server");
             }
+            ChatControl.sendMessageToUser(runningUser, messageToSend.toString());
         }
-    }
 
     public ViewCommand(User user, List<User> users) {
         super(user);

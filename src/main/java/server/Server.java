@@ -19,8 +19,6 @@ public class Server {
     private final Logger logger = LogManager.getLogger(Server.class);
     private boolean done = false;
 
-    private final List<Socket> firstTimeConnectedSocket = Collections.synchronizedList(new ArrayList<>());
-
 
     public static void main(String[] args) {
         new Server().startServer();
@@ -42,21 +40,10 @@ public class Server {
                     }
                 }
             };
-            Runnable checkForFirstTimeUsers = () -> {
-                while (!done) {
-                    try {
-                        getNameFromUser();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
 
             User serverUser = new User(null, null);
             serverUser.setAdmin(true);
 
-            Thread checkForFirstTimeUsersThread = new Thread(checkForFirstTimeUsers);
-            checkForFirstTimeUsersThread.start();
             Thread checkMessagesThread = new Thread(checkMessagesRunnable);
             checkMessagesThread.start();
 
@@ -76,10 +63,9 @@ public class Server {
             // Wait for client to connect
             logger.info("Waiting for clients to connect");
             while (!done) {
-                firstTimeConnectedSocket.add(serverSocket.accept());
-                //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
-                logger.info("Client connected from " + firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1).getInetAddress());
-                //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
+                UserAdministration.addUser(new User(serverSocket.accept(), null));
+                logger.info("Client connected from " + UserAdministration.getUsers()
+                        .get(UserAdministration.getUsers().size() - 1).getSocket().getInetAddress());
             }
         } catch (Exception e) {
             logger.fatal("Error: " + e.getMessage());
@@ -114,49 +100,14 @@ public class Server {
     }
 
     /**
-     * The first time a client connects, it sends its name to the server. This function gets the name from the client.
-     * So the first data sent from the client is the name, always.
-     * @throws IOException when something goes horribly wrong
-     */
-    private synchronized void getNameFromUser() throws IOException {
-        ArrayList<Socket> socketsToRemove = new ArrayList<>();
-        synchronized (firstTimeConnectedSocket) {
-            for (Socket clientSocket : firstTimeConnectedSocket
-            ) {
-                InputStream inputStream = clientSocket.getInputStream();
-                int data;
-                ArrayList<Character> nameArr = new ArrayList<>();
-                while (inputStream.available() > 0) {
-                    data = inputStream.read();
-                    nameArr.add((char) data);
-                }
-                if (nameArr.size() > 0) {
-                    String name = buildStringFromChars(nameArr);
-                    socketsToRemove.add(clientSocket);
-                    UserAdministration.addUser(new User(clientSocket, name));
-                    //users.add(new server.classes.User(clientSocket, name));
-                    sendMessageToClient(name, " has connected<br>", clientSocket);
-                    logger.info("<" + name + "> " + "has Connected from IP " + clientSocket.getInetAddress());
-                }
-            }
-            for (Socket socket : socketsToRemove
-            ) {
-                firstTimeConnectedSocket.remove(socket);
-            }
-            {
-
-            }
-        }
-    }
-
-    /**
      * Checks for messages from clients. This function runs on its own thread
      * @throws IOException when something goes horribly wrong
      */
     //Check for messages from clients
     private synchronized void checkForMessages() throws IOException {
         // Check for messages from clients
-        for (User user : UserAdministration.getUsers()){
+        List<User> users = UserAdministration.getUsers();
+        for (User user : users){
             try {
                 InputStream inputStream = user.getSocket().getInputStream();
                 int data;
@@ -170,6 +121,17 @@ public class Server {
                             .map(Objects::toString)
                             .collect(Collectors.joining());
                     String message = new String(Base64.getDecoder().decode(encodedMessage));
+
+                    //if the User hasn't sent their name
+                    if (!user.isNameSent()){
+                        if (message.contains(" ")) {
+                            user.setName(message.split(" ")[0]);
+                        } else {
+                            user.setName(message);
+                        }
+                        user.setNameSent(true);
+                        return;
+                    }
 
                     // Get the first character of the message
                     if (message.charAt(0) == '/'){
@@ -185,22 +147,13 @@ public class Server {
                     sendMessageToClient(user.getName(), message, user.getSocket());
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.warn("User " + user.getName() + " has probably disconnected");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             } catch (PermissionDeniedException ignored) {}
         }
     }
-
-    /**
-     * @param chars an ArrayList of characters
-     * @return a String from the arrayList of characters.
-     */
-    private String buildStringFromChars(ArrayList<Character> chars){
-        StringBuilder message = new StringBuilder();
-        for (Character character : chars
-        ) {
-            message.append(character);
-        }
-        return message.toString();
-    }
-
 }
