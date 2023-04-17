@@ -56,7 +56,7 @@ public class Server {
             serverUser.setAdmin(true);
 
             Thread checkForFirstTimeUsersThread = new Thread(checkForFirstTimeUsers);
-            checkForFirstTimeUsersThread.start();
+     //       checkForFirstTimeUsersThread.start();
             Thread checkMessagesThread = new Thread(checkMessagesRunnable);
             checkMessagesThread.start();
 
@@ -76,9 +76,11 @@ public class Server {
             // Wait for client to connect
             logger.info("Waiting for clients to connect");
             while (!done) {
-                firstTimeConnectedSocket.add(serverSocket.accept());
+                UserAdministration.addUser(new User(serverSocket.accept(), null));
+                logger.info("Client connected from " + UserAdministration.getUsers().get(UserAdministration.getUsers().size() - 1).getSocket().getInetAddress());
+               // firstTimeConnectedSocket.add(serverSocket.accept());
                 //clients.add(new HashMap<Socket, String>(){{put(serverSocket.accept(), "Client");}});
-                logger.info("Client connected from " + firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1).getInetAddress());
+                //logger.info("Client connected from " + firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1).getInetAddress());
                 //server.administration.ChatControl.sendMessageToUser(new server.classes.User(firstTimeConnectedSocket.get(firstTimeConnectedSocket.size() - 1), null), "<p>Enter Name</p>");
             }
         } catch (Exception e) {
@@ -150,7 +152,8 @@ public class Server {
     //Check for messages from clients
     private synchronized void checkForMessages() throws IOException {
         // Check for messages from clients
-        for (User user : UserAdministration.getUsers()){
+        List<User> users = UserAdministration.getUsers();
+        for (User user : users){
             try {
                 InputStream inputStream = user.getSocket().getInputStream();
                 int data;
@@ -164,6 +167,17 @@ public class Server {
                             .map(Objects::toString)
                             .collect(Collectors.joining());
                     String message = new String(Base64.getDecoder().decode(encodedMessage));
+
+                    //if the User hasn't sent their name
+                    if (!user.isNameSent()){
+                        if (message.contains(" ")) {
+                            user.setName(message.split(" ")[0]);
+                        } else {
+                            user.setName(message);
+                        }
+                        user.setNameSent(true);
+                        return;
+                    }
 
                     // Get the first character of the message
                     if (message.charAt(0) == '/'){
@@ -179,7 +193,12 @@ public class Server {
                     sendMessageToClient(user.getName(), message, user.getSocket());
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                logger.warn("User " + user.getName() + " has probably disconnected");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             } catch (PermissionDeniedException ignored) {}
         }
     }

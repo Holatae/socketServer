@@ -6,6 +6,7 @@ import server.administration.UserAdministration;
 import server.classes.User;
 
 public class AdminlistCommand extends Command {
+    private final StringBuilder messageToSend = new StringBuilder();
     public AdminlistCommand(User runningsUser) {
         super(runningsUser);
     }
@@ -35,8 +36,12 @@ public class AdminlistCommand extends Command {
         for (User user: UserAdministration.getUsers()
              ) {
             if (user.isAdmin()){
-                ChatControl.sendMessageToUser(user, user.getName());
+                messageToSend.append(user.getName()).append("<br>");
             }
         }
+        if (messageToSend.toString().equals("")){
+            messageToSend.append("No admins are connected to the server");
+        }
+        ChatControl.sendMessageToUser(runningUser, messageToSend.toString());
     }
 }

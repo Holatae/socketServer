@@ -112,8 +112,9 @@ public class ClientGUI {
 
     private void sendNameToServer(String name, Socket socket) {
         try {
+            String encodedMessage = Base64.getEncoder().encodeToString(name.getBytes());
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            out.print(name);
+            out.print(encodedMessage);
             out.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
