@@ -68,7 +68,7 @@ public class UserAdministration {
     public synchronized static void deleteUser(User user) throws UserNotFoundException {
         try {
             user.getSocket().close();
-            users.removeIf(users -> user != null);
+            users.removeIf(users -> true);
         }
         catch (Exception e){
             throw new UserNotFoundException();
@@ -76,9 +76,7 @@ public class UserAdministration {
     }
 
     public static void kickAllUsers() {
-        Iterator<User> iterator = users.iterator();
-        while (iterator.hasNext()){
-            User user = iterator.next();
+        for (User user : users) {
             try {
                 ChatControl.sendMessageToUser(user, "You have been kicked from the server");
                 user.getSocket().close();
