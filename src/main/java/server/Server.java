@@ -3,13 +3,13 @@ package server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import server.abstracts.Command;
+import server.administration.ChatControl;
 import server.administration.UserAdministration;
 import server.classes.User;
 import server.exceptions.PermissionDeniedException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -80,30 +80,17 @@ public class Server {
      * @param currentClientSocket - The socket of the client that should not get the message
      */
     private void sendMessageToClient(String sendingUser, String message, Socket currentClientSocket) {
-        synchronized (UserAdministration.getUsers()){
-            for (User user : UserAdministration.getUsers()
-            ) {
-                // Send message to client
-                try {
-                    if (user.getSocket() != currentClientSocket) {
-                        PrintWriter out = new PrintWriter(user.getSocket().getOutputStream(), true);
-                        String messageToSend = sendingUser + ": "+ message;
-                        String encodedMessage = Base64.getEncoder().encodeToString(messageToSend.getBytes());
-                        out.print(encodedMessage);
-                        out.flush();
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        UserAdministration.getUsers().forEach(user -> {
+            if (user.getSocket() != currentClientSocket) {
+                ChatControl.sendMessageToUser(user, sendingUser + ": " + message);
             }
-        }
+        });
     }
 
     /**
      * Checks for messages from clients. This function runs on its own thread
      * @throws IOException when something goes horribly wrong
      */
-    //Check for messages from clients
     private synchronized void checkForMessages() throws IOException {
         // Check for messages from clients
         List<User> users = UserAdministration.getUsers();
@@ -143,7 +130,6 @@ public class Server {
                         return;
                     }
                     logger.info(user.getName() + ": " + message);
-                    //System.out.println(user.getName() + ": " + message);
                     sendMessageToClient(user.getName(), message, user.getSocket());
                 }
             } catch (IOException e) {
