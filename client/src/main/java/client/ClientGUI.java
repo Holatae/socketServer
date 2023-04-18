@@ -185,6 +185,10 @@ public class ClientGUI {
     }
 
     private void sendMessageAndLogIt() {
+        if (!isConnected) {
+            changeServerDetails();
+            return;
+        }
         String message = sendMessageField.getText();
         if (message.equalsIgnoreCase("/dc")){
             sendMessageToServer("/dc", serverSocket);
