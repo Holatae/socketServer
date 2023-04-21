@@ -76,7 +76,7 @@ public class UserAdministration {
     }
 
     public static void kickAllUsers() {
-        for (User user : users) {
+        users.forEach(user -> {
             try {
                 ChatControl.sendMessageToUser(user, "You have been kicked from the server");
                 user.getSocket().close();
@@ -84,6 +84,6 @@ public class UserAdministration {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        });
     }
 }
