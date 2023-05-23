@@ -8,7 +8,7 @@ import java.util.Base64;
 
 public class ChatControl {
     public synchronized static void sendMessageToUser(User user, String message) {
-        PrintWriter out = null;
+        PrintWriter out;
         if (user == null) {
             System.out.println(message);
             return;
@@ -26,6 +26,10 @@ public class ChatControl {
         String encodedMessage = Base64.getEncoder().encodeToString(message.getBytes());
         out.print(encodedMessage);
         out.flush();
+    }
 
+    @SuppressWarnings("unused")
+    public synchronized static void sendMessageToEveryone(String message){
+        UserAdministration.getUsers().forEach(user -> sendMessageToUser(user, message));
     }
 }

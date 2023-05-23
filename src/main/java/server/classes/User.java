@@ -7,6 +7,7 @@ public class User {
     private Socket socket;
     private String name;
     private boolean isAdmin;
+    private boolean isNameSent = false;
     private UUID uuid;
 
     public User(Socket socket, String name) {
@@ -41,5 +42,13 @@ public class User {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public boolean isNameSent() {
+        return isNameSent;
+    }
+
+    public void setNameSent(boolean nameSent) {
+        this.isNameSent = nameSent;
     }
 }
