@@ -1,5 +1,7 @@
 package client;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -55,8 +57,12 @@ public class ClientGUI {
         }
     }
 
-    private void checkForMessages(Socket socket) {
-        // Check for messages from server
+    /**
+     * This function Checks for messages from the server. Only the server sends messages to clients, no p2p
+     * This function normally runs in a while true loop on its own thread
+     * @param socket - Which socket function should check for new messages
+     */
+    private void checkForMessages(@NotNull Socket socket) {
         try {
             InputStream inputStream = socket.getInputStream();
             int data;
@@ -65,7 +71,7 @@ public class ClientGUI {
                 data = inputStream.read();
                 messageArr.add((char) data);
             }
-            if (messageArr.size() > 0) {
+            if (!messageArr.isEmpty()) {
                 // From a ArrayList of characters to a String
                 String encodedMessage = messageArr.stream()
                         .map(Objects::toString)

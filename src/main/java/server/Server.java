@@ -103,7 +103,7 @@ public class Server {
                     data = inputStream.read();
                     messageArr.add((char) data);
                 }
-                if (messageArr.size() > 0) {
+                if (!messageArr.isEmpty()) {
                     String encodedMessage = messageArr.stream()
                             .map(Objects::toString)
                             .collect(Collectors.joining());
